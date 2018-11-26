@@ -1,0 +1,30 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+mainClassName = 'ru.itx.ss7app.SS7App'
+
+jar {
+	from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+	manifest {
+		attributes 'Main-Class': mainClassName
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+repositories {
+	mavenCentral()
+	maven {
+		name 'jboss'
+		url 'http://repository.jboss.org/nexus/content/groups/public/'
+	}
+}
+
+dependencies {
+	compile 'org.mobicents.protocols.sctp:sctp-api:1.7.8'
+	compile 'org.mobicents.protocols.sctp:sctp-impl:1.7.8'
+	compile 'org.mobicents.commons:commons:1.0.0.CR1'
+}
